@@ -18,9 +18,9 @@ function setup() {
 
   createCanvas(500,500);
 
-  balloon = createSprite(100, 395, 50, 50);
+  balloon = createSprite(0, 700, 50, 50);
   balloon.addAnimation('balloon',balloonImg);
-  balloon.scale = 0.4;
+  balloon.scale = 0.45;
 
   var balloonPosition = database.ref("balloon/position");
   balloonPosition.on('value',readPosition,showError);
@@ -28,15 +28,16 @@ function setup() {
 
 function draw() {
   background(backgroundImg);  
+  if(position!==undefined){
   if(keyDown(UP_ARROW)){
     updatePosition(0,-5);
     balloon.addAnimation('balloonUp',balloonUpImg);
-    balloon.scale = balloon.scale - 0.01;
+    balloon.scale = balloon.scale - 0.005;
   }
   else if(keyDown(DOWN_ARROW)){
     updatePosition(0,5);
     balloon.addAnimation('balloonDown',balloonDownImg);
-    balloon.scale = balloon.scale + 0.01;
+    balloon.scale = balloon.scale + 0.005;
   }
   else if(keyDown(LEFT_ARROW)){
     updatePosition(-5,0);
@@ -46,6 +47,7 @@ function draw() {
     updatePosition(5,0);
     balloon.addAnimation('balloonRight',balloonImg2);
   }
+}
 
   fill("black");
   stroke("blue");
